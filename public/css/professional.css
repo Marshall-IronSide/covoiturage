@@ -587,15 +587,29 @@ textarea.form-control {
 
 .trajet-actions {
     display: flex;
-    gap: 1rem;
+    gap: 0.5rem;
     margin-top: auto;
     padding-top: 1rem;
     border-top: 1px solid var(--border);
+    flex-wrap: wrap; /* Allow buttons to wrap if they don't fit */
 }
 
 .trajet-actions .btn {
     flex: 1;
     text-align: center;
+    min-width: 90px;  /* Change from 70px to 90px or 100px */
+    white-space: nowrap;
+    padding: 0.5rem 0.75rem;  /* Add padding to ensure text has space */
+}
+
+.trajet-actions form {
+    flex: 1;
+    min-width: 90px;  /* Change from 70px to 90px */
+    display: flex;
+}
+
+.trajet-actions form .btn {
+    width: 100%;
 }
 
 .badge {

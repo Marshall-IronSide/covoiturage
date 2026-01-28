@@ -23,7 +23,7 @@ Route::get('/trajets/{trajet}', [TrajetController::class, 'show'])->name('trajet
 Route::middleware('auth')->group(function () {
     Route::post('/trajets', [TrajetController::class, 'store'])->name('trajets.store');
     Route::get('/trajets/{trajet}/edit', [TrajetController::class, 'edit'])->name('trajets.edit');
-    Route::patch('/trajets/{trajet}', [TrajetController::class, 'update'])->name('trajets.update');
+    Route::match(['put', 'patch'], '/trajets/{trajet}', [TrajetController::class, 'update'])->name('trajets.update');
     Route::delete('/trajets/{trajet}', [TrajetController::class, 'destroy'])->name('trajets.destroy');
     
     // Routes pour les réservations

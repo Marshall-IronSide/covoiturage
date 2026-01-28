@@ -68,28 +68,28 @@
                                 <strong>Véhicule :</strong> {{ $trajet->description_vehicule }}
                             </div>
 
-                            <div class="trajet-actions">
-                                <a href="{{ route('trajets.show', $trajet) }}" class="btn btn-primary btn-sm">Détails</a>
+                            <div class="trajet-actions" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <a href="{{ route('trajets.show', $trajet) }}" class="btn btn-primary btn-sm" style="flex: 1; min-width: 70px;">Détails</a>
                                 @auth
                                     @if(auth()->id() === $trajet->conducteur_id)
-                                        <a href="{{ route('trajets.edit', $trajet) }}" class="btn btn-warning btn-sm">Éditer</a>
-                                        <form action="{{ route('trajets.destroy', $trajet) }}" method="POST" style="flex: 1;" onsubmit="return confirm('Confirmer la suppression?')">
+                                        <a href="{{ route('trajets.edit', $trajet) }}" class="btn btn-warning btn-sm" style="flex: 1; min-width: 70px;">Éditer</a>
+                                        <form action="{{ route('trajets.destroy', $trajet) }}" method="POST" style="flex: 1; min-width: 70px; display: flex;" onsubmit="return confirm('Confirmer la suppression?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger btn-sm" style="width: 100%; cursor: pointer;">Supprimer</button>
+                                            <button class="btn btn-danger btn-sm" style="width: 100%; cursor: pointer; padding: 0.5rem 0.5rem; font-size: 0.875rem;">Supprimer</button>
                                         </form>
                                     @else
                                         @if($trajet->places_disponibles > 0)
-                                            <form action="{{ route('reservations.store', $trajet) }}" method="POST" style="flex: 1;">
+                                            <form action="{{ route('reservations.store', $trajet) }}" method="POST" style="flex: 1; min-width: 70px; display: flex;">
                                                 @csrf
                                                 <button class="btn btn-success btn-sm" style="width: 100%; cursor: pointer;">Réserver</button>
                                             </form>
                                         @else
-                                            <button class="btn btn-secondary btn-sm" disabled style="width: 100%;">Complet</button>
+                                            <button class="btn btn-secondary btn-sm" disabled style="flex: 1; min-width: 70px;">Complet</button>
                                         @endif
                                     @endif
                                 @else
-                                    <a href="{{ route('login') }}" class="btn btn-primary btn-sm" style="flex: 1; text-align: center;">Réserver</a>
+                                    <a href="{{ route('login') }}" class="btn btn-primary btn-sm" style="flex: 1; text-align: center; min-width: 70px;">Réserver</a>
                                 @endauth
                             </div>
                         </div>
