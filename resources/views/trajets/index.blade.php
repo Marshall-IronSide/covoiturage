@@ -43,16 +43,7 @@
                                 <span class="trajet-city">{{ $trajet->ville_arrivee }}</span>
                             </div>
 
-                            <div class="trajet-meta">
-                                <div class="meta-item">
-                                    <span class="meta-label">Date</span>
-                                    <span class="meta-value">{{ \Carbon\Carbon::parse($trajet->date_trajet)->format('d/m H:i') }}</span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="meta-label">Places libres</span>
-                                    <span class="meta-value">{{ $trajet->places_disponibles }}</span>
-                                </div>
-                            </div>
+                           
 
                             <div class="trajet-driver">
                                 <div class="driver-avatar">{{ strtoupper(substr($trajet->conducteur->prenom, 0, 1)) }}</div>
@@ -65,7 +56,6 @@
                             <div class="trajet-description">
                                 <strong>De :</strong> {{ $trajet->description_depart }}<br>
                                 <strong>À :</strong> {{ $trajet->description_arrivee }}<br>
-                                <strong>Véhicule :</strong> {{ $trajet->description_vehicule }}
                             </div>
 
                             <div class="trajet-actions" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
