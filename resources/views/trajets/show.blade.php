@@ -15,21 +15,26 @@
             </a>
             <ul class="navbar-nav">
                 <li><a href="{{ route('trajets.index') }}" class="nav-link">Tous les trajets</a></li>
-                <li><a href="{{ route('trajets.create') }}" class="nav-link">Créer un trajet</a></li>
-                <li><a href="{{ route('reservations.index') }}" class="nav-link">Mes réservations</a></li>
-                <li class="dropdown-menu">
-                    <a href="#" class="nav-link">{{ Auth::user()->name }}</a>
-                    <div class="dropdown-content">
-                        <a href="{{ route('profile.edit') }}">Mon profil</a>
-                        <form method="POST" action="{{ route('logout') }}" style="margin: 0;">
-                            @csrf
-                            <a href="{{ route('logout') }}" 
-                               onclick="event.preventDefault(); this.closest('form').submit();">
-                                Déconnexion
-                            </a>
-                        </form>
-                    </div>
-                </li>
+                @auth
+                    <li><a href="{{ route('trajets.create') }}" class="nav-link">Créer un trajet</a></li>
+                    <li><a href="{{ route('reservations.index') }}" class="nav-link">Mes réservations</a></li>
+                    <li class="dropdown-menu">
+                        <a href="#" class="nav-link">{{ Auth::user()->name }}</a>
+                        <div class="dropdown-content">
+                            <a href="{{ route('profile.edit') }}">Mon profil</a>
+                            <form method="POST" action="{{ route('logout') }}" style="margin: 0;">
+                                @csrf
+                                <a href="{{ route('logout') }}" 
+                                   onclick="event.preventDefault(); this.closest('form').submit();">
+                                    Déconnexion
+                                </a>
+                            </form>
+                        </div>
+                    </li>
+                @else
+                    <li><a href="{{ route('login') }}" class="nav-link">Connexion</a></li>
+                    <li><a href="{{ route('register') }}" class="nav-link">Inscription</a></li>
+                @endauth
             </ul>
         </div>
     </nav>

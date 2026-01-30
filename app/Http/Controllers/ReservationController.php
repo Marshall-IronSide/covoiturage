@@ -14,7 +14,9 @@ class ReservationController extends Controller
     // Afficher les réservations de l'utilisateur
     public function index()
     {
-        $reservations = auth()->user()->reservations()->with('trajet.conducteur')->get();
+        $reservations = Reservation::where('passager_id', Auth::id())
+            ->with(['trajet.conducteur'])
+            ->get();
         return view('reservations.index', compact('reservations'));
     }
 
@@ -27,13 +29,28 @@ class ReservationController extends Controller
 
         $prix_total = $validated['nombre_places'] * 1000; // À adapter selon vos besoins
 
-        Reservation::create([
-            'trajet_id' => $trajet->id,
-            'passager_id' => auth()->id(),
-            'nombre_places' => $validated['nombre_places'],
-            'prix_total' => $prix_total,
-            'statut' => 'en_attente',
-        ]);
+        // Check if user already has a reservation for this trip (including cancelled ones)
+        $existingReservation = Reservation::where('trajet_id', $trajet->id)
+            ->where('passager_id', Auth::id())
+            ->first();
+
+        if ($existingReservation) {
+            // Update existing reservation
+            $existingReservation->update([
+                'nombre_places' => $validated['nombre_places'],
+                'prix_total' => $prix_total,
+                'statut' => 'en_attente',
+            ]);
+        } else {
+            // Create new reservation
+            Reservation::create([
+                'trajet_id' => $trajet->id,
+                'passager_id' => Auth::id(),
+                'nombre_places' => $validated['nombre_places'],
+                'prix_total' => $prix_total,
+                'statut' => 'en_attente',
+            ]);
+        }
 
         return redirect()->route('trajets.show', $trajet)->with('success', 'Réservation effectuée!');
     }

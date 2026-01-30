@@ -107,8 +107,7 @@ class TrajetController extends Controller
      */
     public function mesTrajets()
     {
-        $user = Auth::user();
-        $trajets = $user->trajets()
+        $trajets = Trajet::where('conducteur_id', Auth::id())
             ->with('vehicule')
             ->orderBy('date_trajet', 'desc')
             ->get();
