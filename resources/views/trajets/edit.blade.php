@@ -59,25 +59,42 @@
             </div>
 
             <!-- Informations véhicule -->
-            <h3 style="margin-top: 2rem; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 1rem;">🚗 Informations du véhicule</h3>
+            <h3 style="margin-top: 2rem; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 1rem;">🚗 Véhicule assigné</h3>
             
-            <div class="form-group">
-                <label for="description_vehicule" class="form-label">Description du véhicule</label>
-                <textarea name="description_vehicule" id="description_vehicule" class="form-control" rows="3" required>{{ old('description_vehicule', $trajet->description_vehicule) }}</textarea>
-                @error('description_vehicule')<span class="form-error">{{ $message }}</span>@enderror
-            </div>
-
-            <div class="form-group">
-                <label for="photo_vehicule" class="form-label">Photo du véhicule</label>
-                @if($trajet->photo_vehicule)
-                    <div style="margin-bottom: 1rem;">
-                        <img src="{{ asset('storage/' . $trajet->photo_vehicule) }}" alt="Photo actuelle" style="max-width: 200px; border-radius: var(--radius); border: 1px solid var(--border);">
-                        <p style="font-size: 0.875rem; color: var(--text-light); margin-top: 0.5rem;">Photo actuelle</p>
+            @if($trajet->vehicule)
+                <div class="form-group" style="background: #f9f9f9; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+                    <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">{{ $trajet->vehicule->numero_plaque }}</div>
+                    <div style="color: #666; margin-bottom: 0.5rem;">{{ $trajet->vehicule->description }}</div>
+                    @if($trajet->vehicule->photo)
+                        <img src="{{ asset('storage/' . $trajet->vehicule->photo) }}" alt="Véhicule" style="max-width: 200px; border-radius: 0.5rem;">
+                    @endif
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: #888;">
+                        ℹ️ Ce véhicule ne peut pas être modifié depuis cette page. Modifiez-le dans votre profil si nécessaire.
                     </div>
-                @endif
-                <input type="file" name="photo_vehicule" id="photo_vehicule" class="form-control" accept="image/*">
-                @error('photo_vehicule')<span class="form-error">{{ $message }}</span>@enderror
-            </div>
+                </div>
+            @else
+                <div class="form-group">
+                    <label for="vehicule_id" class="form-label">Sélectionner un véhicule</label>
+                    @if($vehicules->count() > 0)
+                        <select name="vehicule_id" id="vehicule_id" class="form-control">
+                            <option value="">-- Choisir un véhicule --</option>
+                            @foreach($vehicules as $vehicule)
+                                <option value="{{ $vehicule->id }}" {{ old('vehicule_id', $trajet->vehicule_id) == $vehicule->id ? 'selected' : '' }}>
+                                    {{ $vehicule->numero_plaque }} - {{ $vehicule->description }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('vehicule_id')<span class="form-error">{{ $message }}</span>@enderror
+                        <p style="font-size: 0.875rem; color: var(--text-light); margin-top: 0.5rem;">
+                            ℹ️ Sélectionnez le véhicule à utiliser pour ce trajet
+                        </p>
+                    @else
+                        <div style="background: #ffe0e0; padding: 1rem; border-radius: 0.5rem;">
+                            ❌ Aucun véhicule disponible. Enregistrez d'abord un véhicule.
+                        </div>
+                    @endif
+                </div>
+            @endif
 
             <!-- Actions -->
             <div style="display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">

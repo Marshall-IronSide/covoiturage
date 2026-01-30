@@ -58,19 +58,24 @@
             </div>
 
             <!-- Informations véhicule -->
-            <h3 style="margin-top: 2rem; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 1rem;">🚗 Informations du véhicule</h3>
+            <h3 style="margin-top: 2rem; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 1rem;">🚗 Véhicule assigné</h3>
             
-            <div class="form-group">
-                <label for="description_vehicule" class="form-label">Description du véhicule</label>
-                <textarea name="description_vehicule" id="description_vehicule" class="form-control" placeholder="ex: Renault Clio blanc, très propre" rows="3" required>{{ old('description_vehicule') }}</textarea>
-                @error('description_vehicule')<span class="form-error">{{ $message }}</span>@enderror
-            </div>
-
-            <div class="form-group">
-                <label for="photo_vehicule" class="form-label">Photo du véhicule</label>
-                <input type="file" name="photo_vehicule" id="photo_vehicule" class="form-control" accept="image/*">
-                @error('photo_vehicule')<span class="form-error">{{ $message }}</span>@enderror
-            </div>
+            @if(auth()->user()->vehicule)
+                <div class="form-group" style="background: #f9f9f9; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+                    <div style="font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">{{ auth()->user()->vehicule->numero_plaque }}</div>
+                    <div style="color: #666; margin-bottom: 0.5rem;">{{ auth()->user()->vehicule->description }}</div>
+                    @if(auth()->user()->vehicule->photo)
+                        <img src="{{ asset('storage/' . auth()->user()->vehicule->photo) }}" alt="Véhicule" style="max-width: 200px; border-radius: 0.5rem;">
+                    @endif
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: #888;">
+                        ℹ️ Le véhicule utilisé pour ce trajet sera automatiquement votre véhicule enregistré.
+                    </div>
+                </div>
+            @else
+                <div style="background: #ffe0e0; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+                    ❌ Vous devez d'abord enregistrer un véhicule pour créer un trajet.
+                </div>
+            @endif
 
             <!-- Actions -->
             <div style="display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">

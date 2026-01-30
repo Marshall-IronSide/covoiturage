@@ -100,6 +100,77 @@
                 </div>
             </form>
         </div>
+
+        <!-- Véhicule -->
+        @if(auth()->user()->vehicule)
+            <div class="card" style="margin-top: 2rem; border-left: 4px solid var(--primary);">
+                <div class="card-header">
+                    🚗 Mon véhicule
+                </div>
+
+                <form action="{{ route('vehicule.update', auth()->user()->vehicule) }}" method="POST" enctype="multipart/form-data" class="card-body">
+                    @csrf
+                    @method('PATCH')
+
+                    <!-- Photo du véhicule -->
+                    <div class="form-group">
+                        <label for="photo" class="form-label">📷 Photo du véhicule</label>
+                        @if(auth()->user()->vehicule->photo)
+                            <div style="margin-bottom: 1rem;">
+                                <img src="{{ asset('storage/' . auth()->user()->vehicule->photo) }}" alt="Véhicule" style="max-width: 250px; border-radius: var(--radius); box-shadow: var(--shadow-md);">
+                                <p style="font-size: 0.875rem; color: var(--text-light); margin-top: 0.5rem;">Photo actuelle</p>
+                            </div>
+                        @endif
+                        <input type="file" name="photo" id="photo" accept="image/*" class="form-control" onchange="previewImage(event)">
+                        <div id="imagePreview" style="margin-top: 1rem; display: none;">
+                            <img id="preview" src="" alt="Aperçu" style="max-width: 250px; border-radius: var(--radius); box-shadow: var(--shadow-md);">
+                            <p style="font-size: 0.875rem; color: var(--text-light); margin-top: 0.5rem;">Aperçu de la nouvelle photo</p>
+                        </div>
+                        @error('photo')<span class="form-error">{{ $message }}</span>@enderror
+                    </div>
+
+                    <!-- Numéro de plaque -->
+                    <div class="form-group">
+                        <label for="numero_plaque" class="form-label">🔢 Numéro de plaque</label>
+                        <input type="text" name="numero_plaque" id="numero_plaque" class="form-control" value="{{ old('numero_plaque', auth()->user()->vehicule->numero_plaque) }}" required>
+                        @error('numero_plaque')<span class="form-error">{{ $message }}</span>@enderror
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="description" class="form-label">📝 Description du véhicule</label>
+                        <textarea name="description" id="description" rows="4" class="form-control" required>{{ old('description', auth()->user()->vehicule->description) }}</textarea>
+                        <p style="font-size: 0.875rem; color: var(--text-light); margin-top: 0.5rem;">
+                            Incluez la marque, le modèle, la couleur et toute particularité utile
+                        </p>
+                        @error('description')<span class="form-error">{{ $message }}</span>@enderror
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                        <button type="submit" class="btn btn-primary">✓ Mettre à jour</button>
+                        <a href="{{ route('vehicule.show', auth()->user()->vehicule) }}" class="btn btn-secondary" style="text-align: center;">Voir plus</a>
+                    </div>
+                </form>
+            </div>
+        @else
+            <div class="card" style="margin-top: 2rem; border-left: 4px solid var(--warning);">
+                <div class="card-header" style="color: var(--warning);">
+                    🚗 Véhicule
+                </div>
+
+                <div class="card-body">
+                    <p class="card-text" style="color: var(--text-light); margin-bottom: 1.5rem;">
+                        Vous n'avez pas encore enregistré de véhicule. Enregistrez-en un pour pouvoir proposer des trajets.
+                    </p>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="{{ route('vehicule.create') }}" class="btn btn-primary">🚗 Enregistrer un véhicule</a>
+                    </div>
+                </div>
+            </div>
+        @endif
+            </form>
+        </div>
     </div>
 </div>
 
@@ -112,4 +183,21 @@
     padding: 1.5rem;
 }
 </style>
+
+<script>
+function previewImage(event) {
+    const preview = document.getElementById('preview');
+    const previewContainer = document.getElementById('imagePreview');
+    const file = event.target.files[0];
+    
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            previewContainer.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    }
+}
+</script>
 @endsection

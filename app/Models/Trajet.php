@@ -12,14 +12,13 @@ class Trajet extends Model
 
     protected $fillable = [
         'conducteur_id',
+        'vehicule_id',
         'ville_depart',
         'description_depart',
         'ville_arrivee',
         'description_arrivee',
         'date_trajet',
         'places_disponibles',
-        'photo_vehicule',
-        'description_vehicule',
     ];
 
     protected $casts = [
@@ -31,6 +30,14 @@ class Trajet extends Model
         return $this->belongsTo(User::class, 'conducteur_id');
     }
 
+    /**
+     *  Un trajet utilise un véhicule
+     */
+    public function vehicule(): BelongsTo
+    {
+        return $this->belongsTo(Vehicule::class);
+    }
+    
     public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class, 'trajet_id');

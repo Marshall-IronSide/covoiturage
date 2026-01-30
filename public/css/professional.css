@@ -11,12 +11,21 @@
     --danger: #ef4444;
     --warning: #f59e0b;
     --light: #f8fafc;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-900: #0f172a;
     --border: #e2e8f0;
     --text-dark: #1e293b;
     --text-light: #64748b;
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     --radius: 8px;
 }
 
@@ -33,8 +42,9 @@ html {
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
     color: var(--text-dark);
-    background-color: var(--light);
+    background: linear-gradient(to bottom, var(--gray-50) 0%, white 100%);
     line-height: 1.6;
+    min-height: 100vh;
 }
 
 /* ============================================
@@ -168,6 +178,181 @@ main {
 }
 
 /* ============================================
+   HERO SECTION - MODERN VERSION
+   ============================================ */
+.hero-section {
+    position: relative;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 5rem 2rem;
+    border-radius: 1.5rem;
+    margin: 2rem auto 3rem;
+    max-width: 1280px;
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    animation: fadeInUp 0.6s ease-out 0.1s both;
+    letter-spacing: -0.02em;
+}
+
+.hero-description {
+    font-size: 1.25rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.95;
+    line-height: 1.7;
+    animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.hero-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: white;
+    color: var(--primary);
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+
+.hero-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.btn-icon {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Hero Decorations */
+.hero-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.decoration-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(2px);
+}
+
+.decoration-circle-1 {
+    width: 400px;
+    height: 400px;
+    top: -200px;
+    right: -100px;
+    animation: float 8s ease-in-out infinite;
+}
+
+.decoration-circle-2 {
+    width: 300px;
+    height: 300px;
+    bottom: -150px;
+    left: -100px;
+    animation: float 10s ease-in-out infinite reverse;
+}
+
+.decoration-circle-3 {
+    width: 200px;
+    height: 200px;
+    top: 50%;
+    left: 10%;
+    animation: float 6s ease-in-out infinite;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-20px) scale(1.05);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* ============================================
    BUTTONS
    ============================================ */
 .btn {
@@ -261,8 +446,538 @@ main {
     transform: none !important;
 }
 
+.btn-primary-modern {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 0.875rem 2rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary-modern:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+}
+
 /* ============================================
-   CARDS
+   ALERTS
+   ============================================ */
+.alert {
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    border-left: 4px solid;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.alert-success {
+    background-color: #ecfdf5;
+    color: #065f46;
+    border-color: var(--success);
+}
+
+.alert-danger {
+    background-color: #fef2f2;
+    color: #7f1d1d;
+    border-color: var(--danger);
+}
+
+.alert-warning {
+    background-color: #fffbeb;
+    color: #78350f;
+    border-color: var(--warning);
+}
+
+.alert-info {
+    background-color: #eff6ff;
+    color: #0c2340;
+    border-color: var(--primary);
+}
+
+.alert::before {
+    font-size: 1.5rem;
+}
+
+.alert-success::before {
+    content: "✓";
+}
+
+.alert-danger::before {
+    content: "✕";
+}
+
+.alert-warning::before {
+    content: "⚠";
+}
+
+.alert-info::before {
+    content: "ℹ";
+}
+
+/* Modern Alert Version */
+.alert-success-modern {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #d1fae5;
+    color: #065f46;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    margin: 0 auto 2rem;
+    max-width: 1280px;
+    border-left: 4px solid var(--success);
+    animation: slideInRight 0.4s ease-out;
+}
+
+.alert-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background: var(--success);
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.alert-content {
+    flex: 1;
+}
+
+/* ============================================
+   EMPTY STATE - MODERN VERSION
+   ============================================ */
+.empty-state-modern {
+    max-width: 600px;
+    margin: 4rem auto;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-md);
+}
+
+.empty-icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.empty-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 0.75rem;
+}
+
+.empty-text {
+    font-size: 1.125rem;
+    color: var(--gray-600);
+    margin-bottom: 2rem;
+}
+
+/* ============================================
+   SECTION HEADER
+   ============================================ */
+.trajets-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.section-count {
+    background: var(--primary);
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+/* ============================================
+   GRID LAYOUT
+   ============================================ */
+.grid {
+    display: grid;
+    gap: 2rem;
+}
+
+.grid-3 {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+/* ============================================
+   MODERN TRAJET CARDS
+   ============================================ */
+.trajet-card-modern {
+    background: white;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.5s ease-out both;
+    position: relative;
+}
+
+.trajet-card-modern:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+}
+
+/* Stagger animation for cards */
+.trajet-card-modern:nth-child(1) { animation-delay: 0.1s; }
+.trajet-card-modern:nth-child(2) { animation-delay: 0.2s; }
+.trajet-card-modern:nth-child(3) { animation-delay: 0.3s; }
+.trajet-card-modern:nth-child(4) { animation-delay: 0.4s; }
+.trajet-card-modern:nth-child(5) { animation-delay: 0.5s; }
+.trajet-card-modern:nth-child(6) { animation-delay: 0.6s; }
+
+.card-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.trajet-card-modern:hover .card-image {
+    transform: scale(1.08);
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.trajet-card-modern:hover .image-overlay {
+    opacity: 1;
+}
+
+.card-image-placeholder {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+    opacity: 0.3;
+}
+
+.availability-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    backdrop-filter: blur(10px);
+    z-index: 10;
+}
+
+.availability-badge.available {
+    background: rgba(16, 185, 129, 0.95);
+    color: white;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.availability-badge.full {
+    background: rgba(239, 68, 68, 0.95);
+    color: white;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* Card Content */
+.card-content {
+    padding: 1.75rem;
+}
+
+.route-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
+
+.route-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.route-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.route-dot-start {
+    background: var(--success);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.route-dot-end {
+    background: var(--danger);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.route-city {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.route-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.route-line {
+    width: 40px;
+    height: 2px;
+    background: var(--gray-300);
+    position: relative;
+}
+
+.route-arrow {
+    font-size: 1.5rem;
+    color: var(--primary);
+    font-weight: 700;
+    position: absolute;
+}
+
+/* Route Details */
+.route-details {
+    background: var(--gray-50);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.detail-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.detail-row:last-child {
+    margin-bottom: 0;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--gray-700);
+    flex-shrink: 0;
+}
+
+.detail-value {
+    color: var(--gray-600);
+}
+
+/* Driver Section */
+.driver-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--gray-50);
+    border-radius: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.driver-avatar-modern {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.driver-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.driver-name-modern {
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 0.25rem;
+}
+
+.vehicle-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--gray-600);
+}
+
+.vehicle-icon {
+    font-size: 1rem;
+}
+
+/* Card Actions */
+.card-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    flex: 1;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.25rem;
+    border: none;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.action-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.5s ease;
+}
+
+.action-btn:hover::before {
+    left: 100%;
+}
+
+.action-btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.action-btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+.action-btn-success {
+    background: var(--success);
+    color: white;
+}
+
+.action-btn-success:hover {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.action-btn-warning {
+    background: var(--warning);
+    color: white;
+}
+
+.action-btn-warning:hover {
+    background: #d97706;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+}
+
+.action-btn-danger {
+    background: var(--danger);
+    color: white;
+}
+
+.action-btn-danger:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+.action-btn-disabled {
+    background: var(--gray-300);
+    color: var(--gray-600);
+    cursor: not-allowed;
+}
+
+.action-form {
+    flex: 1;
+    min-width: 100px;
+    display: flex;
+}
+
+.action-form .action-btn {
+    width: 100%;
+}
+
+.btn-text {
+    font-weight: 600;
+}
+
+.btn-arrow {
+    font-size: 1.125rem;
+    transition: transform 0.3s ease;
+}
+
+.action-btn:hover .btn-arrow {
+    transform: translateX(3px);
+}
+
+/* ============================================
+   CARDS (Legacy Support)
    ============================================ */
 .card {
     background: white;
@@ -380,116 +1095,40 @@ textarea.form-control {
 }
 
 /* ============================================
-   ALERTS
+   TRAJET CARDS (Legacy)
    ============================================ */
-.alert {
-    padding: 1rem 1.5rem;
-    border-radius: var(--radius);
-    margin-bottom: 1.5rem;
-    border-left: 4px solid;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.alert-success {
-    background-color: #ecfdf5;
-    color: #065f46;
-    border-color: var(--success);
-}
-
-.alert-danger {
-    background-color: #fef2f2;
-    color: #7f1d1d;
-    border-color: var(--danger);
-}
-
-.alert-warning {
-    background-color: #fffbeb;
-    color: #78350f;
-    border-color: var(--warning);
-}
-
-.alert-info {
-    background-color: #eff6ff;
-    color: #0c2340;
-    border-color: var(--primary);
-}
-
-.alert::before {
-    font-size: 1.5rem;
-}
-
-.alert-success::before {
-    content: '✓';
-}
-
-.alert-danger::before {
-    content: '✕';
-}
-
-.alert-warning::before {
-    content: '⚠';
-}
-
-.alert-info::before {
-    content: 'ℹ';
-}
-
-/* ============================================
-   GRID LAYOUTS
-   ============================================ */
-.grid {
+.grid-trajets {
     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 2rem;
+    margin-top: 2rem;
 }
 
-.grid-2 {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-
-.grid-3 {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-
-.grid-4 {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-/* ============================================
-   TRAJET CARD
-   ============================================ */
 .trajet-card {
     background: white;
-    border-radius: var(--radius);
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
-    height: 100%;
     display: flex;
     flex-direction: column;
 }
 
 .trajet-card:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-8px);
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .trajet-image {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
+    background: #f0f0f0;
 }
 
 .trajet-body {
     padding: 1.5rem;
-    flex-grow: 1;
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
@@ -497,55 +1136,22 @@ textarea.form-control {
 .trajet-route {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 8px;
 }
 
 .trajet-city {
-    font-weight: 700;
     font-size: 1.125rem;
+    font-weight: 700;
     color: var(--text-dark);
 }
 
 .trajet-arrow {
-    color: var(--primary);
     font-size: 1.5rem;
-}
-
-.trajet-description {
-    font-size: 0.875rem;
-    color: var(--text-light);
-    margin-bottom: 1rem;
-    line-height: 1.5;
-}
-
-.trajet-meta {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin: 1rem 0;
-    padding: 1rem 0;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-}
-
-.meta-item {
-    display: flex;
-    flex-direction: column;
-}
-
-.meta-label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    color: var(--text-light);
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
-
-.meta-value {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--text-dark);
+    color: var(--primary);
 }
 
 .trajet-driver {
@@ -554,30 +1160,32 @@ textarea.form-control {
     gap: 1rem;
     padding: 1rem;
     background: var(--light);
-    border-radius: var(--radius);
-    margin: 1rem 0;
+    border-radius: 8px;
+    margin-bottom: 1rem;
 }
 
 .driver-avatar {
-    width: 48px;
-    height: 48px;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-weight: bold;
-    font-size: 1.5rem;
+    font-weight: 700;
+    font-size: 1.125rem;
+    flex-shrink: 0;
 }
 
 .driver-info {
-    flex-grow: 1;
+    flex: 1;
 }
 
 .driver-name {
-    font-weight: 700;
+    font-weight: 600;
     color: var(--text-dark);
+    margin-bottom: 0.25rem;
 }
 
 .driver-rating {
@@ -585,116 +1193,731 @@ textarea.form-control {
     color: var(--text-light);
 }
 
+.trajet-description {
+    color: var(--text-light);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
 .trajet-actions {
     display: flex;
     gap: 0.5rem;
     margin-top: auto;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border);
-    flex-wrap: wrap; /* Allow buttons to wrap if they don't fit */
 }
 
 .trajet-actions .btn {
     flex: 1;
-    text-align: center;
-    min-width: 90px;  /* Change from 70px to 90px or 100px */
-    white-space: nowrap;
-    padding: 0.5rem 0.75rem;  /* Add padding to ensure text has space */
-}
-
-.trajet-actions form {
-    flex: 1;
-    min-width: 90px;  /* Change from 70px to 90px */
-    display: flex;
-}
-
-.trajet-actions form .btn {
-    width: 100%;
-}
-
-.badge {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.badge-primary {
-    background: #dbeafe;
-    color: var(--primary);
-}
-
-.badge-success {
-    background: #dcfce7;
-    color: var(--success);
-}
-
-.badge-danger {
-    background: #fee2e2;
-    color: var(--danger);
-}
-
-.badge-warning {
-    background: #fef3c7;
-    color: var(--warning);
 }
 
 /* ============================================
-   SECTIONS
+   SHOW PAGE STYLES
    ============================================ */
-.section {
-    padding: 3rem 0;
+.trip-show-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
 }
 
-.section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 1rem;
-}
-
-.section-subtitle {
-    font-size: 1.125rem;
-    color: var(--text-light);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* ============================================
-   HERO SECTION
-   ============================================ */
-.hero {
+.trip-show-header {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: white;
-    padding: 6rem 2rem;
-    text-align: center;
+    padding: 2.5rem;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
-.hero-title {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-.hero-subtitle {
-    font-size: 1.25rem;
+.route-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 2rem;
-    opacity: 0.95;
 }
 
-.hero-cta {
-    display: inline-flex;
+.location-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.location-icon {
+    font-size: 2rem;
+}
+
+.city {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.description {
+    font-size: 0.9375rem;
+    opacity: 0.9;
+}
+
+.route-arrow {
+    font-size: 3rem;
+    opacity: 0.8;
+}
+
+.trip-meta {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.meta-icon {
+    font-size: 1.5rem;
+}
+
+.meta-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.meta-label {
+    font-size: 0.8125rem;
+    opacity: 0.9;
+}
+
+.meta-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+.trip-content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-top: -3rem;
+    position: relative;
+    z-index: 2;
+}
+
+.trip-main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.section-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.section-card h2 {
+    font-size: 1.375rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.section-card h2::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 24px;
+    background: var(--primary);
+    border-radius: 2px;
+}
+
+.trip-description {
+    color: var(--text-light);
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+.vehicle-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.vehicle-card h2 {
+    font-size: 1.375rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+.vehicle-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.vehicle-details {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
 }
 
+.vehicle-detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    background: var(--light);
+    border-radius: 6px;
+}
+
+.vehicle-label {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.vehicle-value {
+    color: var(--text-light);
+}
+
+.driver-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.driver-card h2 {
+    font-size: 1.375rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+.driver-info {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.driver-avatar-large {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.driver-text {
+    flex: 1;
+}
+
+.driver-name-large {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.driver-bio {
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.driver-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #475569;
+    font-size: 1rem;
+    padding: 0.5rem;
+    background: #f8fafc;
+    border-radius: 6px;
+}
+
+.contact-item .icon {
+    font-size: 1.25rem;
+}
+
+/* Reservations List (New) */
+.reservations-list-new {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.reservation-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s;
+}
+
+.reservation-item:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.reservation-passenger {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+
+.passenger-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.125rem;
+    flex-shrink: 0;
+}
+
+.passenger-info {
+    flex: 1;
+}
+
+.passenger-name {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.passenger-details {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.status-en_attente {
+    color: #f59e0b;
+    font-weight: 600;
+}
+
+.status-confirmee {
+    color: #10b981;
+    font-weight: 600;
+}
+
+.reservation-action {
+    margin-left: 1rem;
+}
+
+.btn-confirm {
+    background: #10b981;
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-confirm:hover {
+    background: #059669;
+    transform: translateY(-1px);
+}
+
+/* Sidebar */
+.trip-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Booking Card */
+.booking-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 2rem;
+}
+
+.booking-header {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    padding: 1.5rem;
+    color: white;
+}
+
+.booking-header h3 {
+    margin: 0;
+    font-size: 1.375rem;
+    font-weight: 700;
+}
+
+.booking-body {
+    padding: 1.5rem;
+}
+
+/* Trip Info Summary */
+.trip-info-summary {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+}
+
+.info-row:not(:last-child) {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.info-label {
+    font-size: 0.875rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.info-value {
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 1rem;
+}
+
+.places-count {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    color: white;
+    padding: 0.375rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+}
+
+/* Booking Form */
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-group-inline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group-inline label {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 0.9375rem;
+}
+
+.form-select {
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Action Buttons */
+.btn-book {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.0625rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-book:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.btn-book span {
+    font-size: 1.25rem;
+}
+
+/* Owner Actions */
+.owner-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.btn-edit {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+.btn-edit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.booking-unavailable {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    border: 2px solid #fecaca;
+}
+
+/* Info Card */
+.info-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.info-card-header {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    padding: 1rem 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.info-card-body {
+    padding: 1.25rem;
+}
+
+.info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.info-list li {
+    padding-left: 1.75rem;
+    position: relative;
+    color: #475569;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+.info-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: bold;
+    font-size: 1.125rem;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 1024px) {
+    .trip-content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-card {
+        position: static;
+    }
+
+    .trip-show-container {
+        padding: 1rem;
+    }
+
+    .trip-show-header {
+        padding: 1.5rem;
+    }
+
+    .location-badge .city {
+        font-size: 1.25rem;
+    }
+
+    .route-arrow {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-description {
+        font-size: 1.125rem;
+    }
+
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .card-actions {
+        flex-direction: column;
+    }
+
+    .action-btn {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .route-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .route-connector {
+        width: 100%;
+        flex-direction: row;
+        height: 40px;
+    }
+
+    .route-line {
+        width: 2px;
+        height: 40px;
+    }
+
+    .route-info {
+        flex-direction: column;
+    }
+
+    .route-arrow {
+        transform: rotate(90deg);
+    }
+
+    .trip-meta {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .driver-info {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .driver-contact {
+        width: 100%;
+    }
+
+    .reservation-item {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .reservation-action {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .btn-confirm {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        padding: 3rem 1.5rem;
+        margin: 1rem;
+        border-radius: 1rem;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .container, .trajets-container {
+        padding: 0 1rem;
+    }
+
+    .grid-trajets {
+        grid-template-columns: 1fr;
+    }
+}
 /* ============================================
    DASHBOARD
    ============================================ */
@@ -725,304 +1948,6 @@ textarea.form-control {
     font-size: 2rem;
     font-weight: 700;
     color: var(--primary);
-}
-
-/* ============================================
-   PROFILE
-   ============================================ */
-.profile-header {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    color: white;
-    padding: 3rem 0;
-    margin-bottom: 3rem;
-}
-
-.profile-info {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
-.profile-avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-}
-
-/* ============================================
-   TABLES
-   ============================================ */
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-}
-
-.table thead {
-    background: var(--light);
-    border-bottom: 2px solid var(--border);
-}
-
-.table th {
-    padding: 1rem;
-    text-align: left;
-    font-weight: 600;
-    color: var(--text-dark);
-}
-
-.table td {
-    padding: 1rem;
-    border-bottom: 1px solid var(--border);
-}
-
-.table tbody tr:hover {
-    background: var(--light);
-}
-
-.table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-/* ============================================
-   PAGINATION
-   ============================================ */
-.pagination {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-    margin: 2rem 0;
-}
-
-.pagination a,
-.pagination span {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    text-decoration: none;
-    color: var(--text-dark);
-    transition: all 0.3s ease;
-}
-
-.pagination a:hover {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-}
-
-.pagination .active span {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-}
-
-/* ============================================
-   MODALS & OVERLAYS
-   ============================================ */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-.modal {
-    background: white;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-lg);
-    max-width: 500px;
-    width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
-.modal-header {
-    padding: 2rem;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.modal-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
-.modal-close {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-light);
-}
-
-.modal-body {
-    padding: 2rem;
-}
-
-.modal-footer {
-    padding: 2rem;
-    border-top: 1px solid var(--border);
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-}
-
-/* ============================================
-   UTILITIES
-   ============================================ */
-.text-center {
-    text-align: center;
-}
-
-.text-muted {
-    color: var(--text-light);
-}
-
-.mt-1 { margin-top: 0.5rem; }
-.mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
-.mt-4 { margin-top: 2rem; }
-
-.mb-1 { margin-bottom: 0.5rem; }
-.mb-2 { margin-bottom: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-.mb-4 { margin-bottom: 2rem; }
-
-.p-1 { padding: 0.5rem; }
-.p-2 { padding: 1rem; }
-.p-3 { padding: 1.5rem; }
-.p-4 { padding: 2rem; }
-
-.gap-1 { gap: 0.5rem; }
-.gap-2 { gap: 1rem; }
-.gap-3 { gap: 1.5rem; }
-
-.rounded { border-radius: var(--radius); }
-
-.flex { display: flex; }
-.flex-center { display: flex; align-items: center; justify-content: center; }
-.flex-between { display: flex; align-items: center; justify-content: space-between; }
-
-.hidden { display: none; }
-
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-@media (max-width: 768px) {
-    .navbar-container {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .navbar-nav {
-        flex-direction: column;
-        gap: 0.5rem;
-        width: 100%;
-    }
-
-    .hero-title {
-        font-size: 2rem;
-    }
-
-    .section-title {
-        font-size: 2rem;
-    }
-
-    .trajet-meta {
-        grid-template-columns: 1fr;
-    }
-
-    .trajet-actions {
-        flex-direction: column;
-    }
-
-    .grid-2,
-    .grid-3,
-    .grid-4 {
-        grid-template-columns: 1fr;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-
-    .profile-info {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .modal {
-        width: 95%;
-    }
-
-    main {
-        padding: 1.5rem 0;
-    }
-
-    .container {
-        padding: 0 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .navbar-nav {
-        gap: 0.25rem;
-    }
-
-    .nav-link {
-        padding: 0.25rem 0.5rem;
-        font-size: 0.875rem;
-    }
-
-    .btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.875rem;
-    }
-
-    .hero-title {
-        font-size: 1.5rem;
-    }
-
-    .card {
-        padding: 1rem;
-    }
-
-    .trajet-card {
-        border-radius: 4px;
-    }
-
-    .trajet-image {
-        height: 150px;
-    }
-
-    .trajet-actions {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .trajet-actions .btn {
-        padding: 0.5rem;
-    }
-
-    .dropdown-content {
-        right: auto;
-        left: 0;
-    }
 }
 /* ========================================
    TRIP SHOW PAGE STYLES

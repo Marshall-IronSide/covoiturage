@@ -4,63 +4,75 @@ namespace App\Http\Controllers;
 
 use App\Models\Trajet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use function Laravel\Prompts\confirm;
 
 class TrajetController extends Controller
 {
-    // Afficher la liste de tous les trajets
     public function index()
     {
-        $trajets = Trajet::with('conducteur')->get();
+        //  Charger la relation vehicule
+        $trajets = Trajet::with(['conducteur', 'vehicule'])
+            ->where('date_trajet', '>=', now())
+            ->orderBy('date_trajet', 'asc')
+            ->get();
+        
         return view('trajets.index', compact('trajets'));
     }
 
-    // Afficher le formulaire de création
     public function create()
     {
+        // Vérifier que l'utilisateur a un véhicule
+        if (!Auth::user()->vehicule) {
+            return redirect()->route('vehicule.create')
+                ->with('error', '⚠️ Vous devez d\'abord enregistrer un véhicule avant de créer un trajet.');
+        }
+
         return view('trajets.create');
     }
 
-    // Enregistrer un nouveau trajet
     public function store(Request $request)
     {
+        // Vérifier que l'utilisateur a un véhicule
+        if (!Auth::user()->vehicule) {
+            return redirect()->route('vehicule.create')
+                ->with('error', '⚠️ Vous devez d\'abord enregistrer un véhicule avant de créer un trajet.');
+        }
+
         $validated = $request->validate([
             'ville_depart' => 'required|string|max:255',
             'description_depart' => 'required|string',
             'ville_arrivee' => 'required|string|max:255',
             'description_arrivee' => 'required|string',
-            'date_trajet' => 'required|date',
-            'places_disponibles' => 'required|integer|min:1',
-            'description_vehicule' => 'required|string',
-            'photo_vehicule' => 'nullable|image|max:2048',
+            'date_trajet' => 'required|date|after:now',
+            'places_disponibles' => 'required|integer|min:1|max:8',
+            // description_vehicule et photo_vehicule SUPPRIMÉS
         ]);
 
-        // Traiter la photo
-        if ($request->hasFile('photo_vehicule')) {
-            $path = $request->file('photo_vehicule')->store('vehicules', 'public');
-            $validated['photo_vehicule'] = $path;
-        }
+        $validated['conducteur_id'] = Auth::id();
+        //  Utiliser automatiquement le véhicule de l'utilisateur
+        $validated['vehicule_id'] = Auth::user()->vehicule->id;
 
-        $validated['conducteur_id'] = auth()->id();
         Trajet::create($validated);
 
-        return redirect()->route('trajets.index')->with('success', 'Trajet créé avec succès!');
+        return redirect()->route('trajets.index')
+            ->with('success', '✅ Trajet créé avec succès!');
     }
 
-    // Afficher un trajet spécifique
     public function show(Trajet $trajet)
     {
-        $trajet->load('conducteur', 'reservations');
+        
+        $trajet->load(['conducteur', 'vehicule', 'reservations']);
         return view('trajets.show', compact('trajet'));
     }
 
-    // Afficher le formulaire d'édition
     public function edit(Trajet $trajet)
     {
         $this->authorize('update', $trajet);
-        return view('trajets.edit', compact('trajet'));
+        $vehicules = Auth::user()->vehicule ? collect([Auth::user()->vehicule]) : collect();
+        return view('trajets.edit', compact('trajet', 'vehicules'));
     }
 
-    // Mettre à jour un trajet
     public function update(Request $request, Trajet $trajet)
     {
         $this->authorize('update', $trajet);
@@ -71,26 +83,36 @@ class TrajetController extends Controller
             'ville_arrivee' => 'required|string|max:255',
             'description_arrivee' => 'required|string',
             'date_trajet' => 'required|date',
-            'places_disponibles' => 'required|integer|min:1',
-            'description_vehicule' => 'required|string',
-            'photo_vehicule' => 'nullable|image|max:2048',
+            'places_disponibles' => 'required|integer|min:1|max:8',
+            'vehicule_id' => 'nullable|exists:vehicules,id',
         ]);
 
-        if ($request->hasFile('photo_vehicule')) {
-            $path = $request->file('photo_vehicule')->store('vehicules', 'public');
-            $validated['photo_vehicule'] = $path;
-        }
-
         $trajet->update($validated);
-        return redirect()->route('trajets.show', $trajet)->with('success', 'Trajet mis à jour!');
+        
+        return redirect()->route('trajets.show', $trajet)
+            ->with('success', '✅ Trajet mis à jour!');
     }
 
-    // Supprimer un trajet
     public function destroy(Trajet $trajet)
     {
         $this->authorize('delete', $trajet);
         $trajet->delete();
 
-        return redirect()->route('trajets.index')->with('success', 'Trajet supprimé!');
+        return redirect()->route('trajets.index')
+            ->with('success', '✅ Trajet supprimé!');
+    }
+
+    /**
+     *  Afficher les trajets de l'utilisateur
+     */
+    public function mesTrajets()
+    {
+        $user = Auth::user();
+        $trajets = $user->trajets()
+            ->with('vehicule')
+            ->orderBy('date_trajet', 'desc')
+            ->get();
+
+        return view('trajets.mes-trajets', compact('trajets'));
     }
 }
