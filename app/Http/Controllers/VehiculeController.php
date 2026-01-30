@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class VehiculeController extends Controller
 {
-   
+
     /**
      * Afficher le formulaire de création
      */
@@ -129,7 +129,7 @@ class VehiculeController extends Controller
 
         // Vérifier s'il y a des trajets à venir
         $upcomingTrips = $vehicule->trajets()->where('date_trajet', '>', now())->count();
-        
+
         if ($upcomingTrips > 0) {
             return redirect()->route('vehicule.show', $vehicule)
                 ->with('error', '⚠️ Impossible de supprimer ce véhicule car il a des trajets à venir.');

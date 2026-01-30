@@ -64,7 +64,7 @@ class User extends Authenticatable
     {
         return "{$this->prenom} {$this->nom}";
     }
-        /**
+    /**
      * Un utilisateur a UN SEUL véhicule
      */
     public function vehicule(): HasOne

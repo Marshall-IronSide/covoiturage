@@ -37,7 +37,7 @@ class Trajet extends Model
     {
         return $this->belongsTo(Vehicule::class);
     }
-    
+
     public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class, 'trajet_id');

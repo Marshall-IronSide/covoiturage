@@ -16,7 +16,7 @@ class TrajetController extends Controller
             ->where('date_trajet', '>=', now())
             ->orderBy('date_trajet', 'asc')
             ->get();
-        
+
         return view('trajets.index', compact('trajets'));
     }
 
@@ -61,7 +61,7 @@ class TrajetController extends Controller
 
     public function show(Trajet $trajet)
     {
-        
+
         $trajet->load(['conducteur', 'vehicule', 'reservations']);
         return view('trajets.show', compact('trajet'));
     }
@@ -88,7 +88,7 @@ class TrajetController extends Controller
         ]);
 
         $trajet->update($validated);
-        
+
         return redirect()->route('trajets.show', $trajet)
             ->with('success', '✅ Trajet mis à jour!');
     }
