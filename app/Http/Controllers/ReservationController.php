@@ -25,7 +25,7 @@ class ReservationController extends Controller
             'nombre_places' => 'required|integer|min:1|max:' . $trajet->places_disponibles,
         ]);
 
-        $prix_total = $validated['nombre_places'] * 10; // À adapter selon vos besoins
+        $prix_total = $validated['nombre_places'] * 1000; // À adapter selon vos besoins
 
         Reservation::create([
             'trajet_id' => $trajet->id,

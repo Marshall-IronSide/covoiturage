@@ -27,7 +27,7 @@
                     <div class="card-text">
                         <p><strong>📅 Date:</strong> {{ \Carbon\Carbon::parse($reservation->trajet->date_trajet)->format('d/m/Y H:i') }}</p>
                         <p><strong>💺 Places:</strong> {{ $reservation->nombre_places }} place(s)</p>
-                        <p><strong>💰 Prix:</strong> {{ number_format($reservation->prix_total, 2) }} €</p>
+                        <p><strong>💰 Prix:</strong> {{ number_format($reservation->prix_total, 2) }} F.CFA</p>
                         <p><strong>🧑 Conducteur:</strong> {{ $reservation->trajet->conducteur->prenom }} {{ $reservation->trajet->conducteur->nom }}</p>
                         <p><strong>📞 Téléphone:</strong> {{ $reservation->trajet->conducteur->telephone }}</p>
                     </div>
