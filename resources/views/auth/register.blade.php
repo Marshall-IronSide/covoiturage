@@ -35,7 +35,7 @@
 
         <!-- Téléphone -->
         <div class="form-group">
-            <label for="telephone" class="form-label">Téléphone (optionnel)</label>
+            <label for="telephone" class="form-label">Téléphone</label>
             <input id="telephone" class="form-control" type="tel" name="telephone" value="{{ old('telephone') }}" />
             @error('telephone')
                 <div class="form-error">{{ $message }}</div>
